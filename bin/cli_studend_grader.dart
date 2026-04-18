@@ -274,3 +274,61 @@ void viewReportCard(List<Map<String, dynamic>> students) {
 ╚═══════════════════════════════════════════════╝
 """);
 }
+
+// -------- Feature 8: Class Summary --------
+void classSummary(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print('No students available.');
+    return;
+  }
+
+  var total = 0.0;
+  var highest = -1.0;
+  var lowest = 101.0;
+
+  var scoredCount = 0;
+  var passCount = 0;
+
+  // 20. Set
+  var grades = <String>{};
+
+  for (var student in students) {
+    var scores = student['scores'] as List<int>;
+    if (scores.isEmpty) continue;
+
+    var avg = calculateAvg(student);
+    total += avg;
+    scoredCount++;
+
+    if (avg > highest) highest = avg;
+    if (avg < lowest) lowest = avg;
+
+    // 10. logical operators
+    if (scores.isNotEmpty && avg >= 60) {
+      passCount++;
+    }
+
+    grades.add(getGrade(avg));
+  }
+
+  var classAvg = scoredCount == 0 ? 0.0 : total / scoredCount;
+
+  // 23. collection for
+  var summaryLines = [
+    for (var student in students)
+      '${student['name']}: ${((student['scores'] as List<int>).isEmpty ? 'No scores' : calculateAvg(student).toStringAsFixed(2))}',
+  ];
+
+  print("""
+===== CLASS SUMMARY =====
+Total Students: ${students.length}
+Class Average: ${classAvg.toStringAsFixed(2)}
+Highest Avg: ${scoredCount == 0 ? 'N/A' : highest.toStringAsFixed(2)}
+Lowest Avg: ${scoredCount == 0 ? 'N/A' : lowest.toStringAsFixed(2)}
+Passing Students: $passCount
+Grades Present: $grades
+
+Details:
+${summaryLines.join('\n')}
+""");
+}
