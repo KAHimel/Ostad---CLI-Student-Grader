@@ -206,3 +206,71 @@ void viewAllStudents(List<Map<String, dynamic>> students) {
     print(tags.join(' | '));
   }
 }
+
+// -------- Feature 7: Report Card --------
+void viewReportCard(List<Map<String, dynamic>> students) {
+  var student = selectStudent(students);
+  if (student == null) return;
+
+  var scores = student['scores'] as List<int>;
+
+  if (scores.isEmpty) {
+    print('No scores available.');
+    return;
+  }
+
+  // 8. arithmetic operators
+  var sum = 0;
+  for (var s in scores) {
+    sum += s;
+  }
+
+  var rawAvg = sum / scores.length;
+
+  // 5. ?? (null fallback)
+  var bonus = student['bonus'] ?? 0;
+
+  var finalAvg = rawAvg + bonus;
+  if (finalAvg > 100) finalAvg = 100;
+
+  // 9 & 13. relational + if/else
+  String grade;
+  if (finalAvg >= 90) {
+    grade = 'A';
+  } else if (finalAvg >= 80) {
+    grade = 'B';
+  } else if (finalAvg >= 70) {
+    grade = 'C';
+  } else if (finalAvg >= 60) {
+    grade = 'D';
+  } else {
+    grade = 'F';
+  }
+
+  // 7. ?. and ?? usage
+  var comment = student['comment']?.toUpperCase() ?? 'No comment provided';
+
+  // 14. switch expression
+  var feedback = switch (grade) {
+    'A' => 'Outstanding performance!',
+    'B' => 'Good work, keep it up!',
+    'C' => 'Satisfactory. Room to improve.',
+    'D' => 'Needs improvement.',
+    'F' => 'Failing. Please seek help.',
+    _ => 'Unknown grade.',
+  };
+
+  print("""
+╔═══════════════════════════════════════════════╗
+║  REPORT CARD                                  ║
+╠═══════════════════════════════════════════════╝
+║  Name     : ${student['name']}                  
+║  Scores   : $scores                             
+║  Bonus    : +$bonus                             
+║  Average  : ${finalAvg.toStringAsFixed(2)}      
+║  Grade    : $grade                              
+║  Comment  : $comment                            
+║  Feedback : $feedback                                        
+╚═══════════════════════════════════════════════╝
+""");
+}
