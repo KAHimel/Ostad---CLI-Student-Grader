@@ -93,3 +93,61 @@ void addStudent(List<Map<String, dynamic>> students) {
   // 11. string interpolation
   print('Student "${student['name']}" added successfully.');
 }
+
+// -------- Feature 3: Record Score --------
+void recordScore(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print('No students available.');
+    return;
+  }
+
+  // 15. indexed for loop
+  for (var i = 0; i < students.length; i++) {
+    print('${i + 1}. ${students[i]['name']}');
+  }
+
+  stdout.write('Select student: ');
+  var index = int.tryParse(stdin.readLineSync() ?? '');
+
+  if (index == null || index < 1 || index > students.length) {
+    print('Invalid selection.');
+    return;
+  }
+
+  var student = students[index - 1];
+  var subjectList = [...student['subjects'] as Set<String>];
+
+  print('Available subjects:');
+  for (var i = 0; i < subjectList.length; i++) {
+    print('${i + 1}. ${subjectList[i]}');
+  }
+
+  stdout.write('Choose subject: ');
+  var subjectIndex = int.tryParse(stdin.readLineSync() ?? '');
+  if (subjectIndex == null ||
+      subjectIndex < 1 ||
+      subjectIndex > subjectList.length) {
+    print('Invalid subject selection.');
+    return;
+  }
+
+  var selectedSubject = subjectList[subjectIndex - 1];
+  int score;
+
+  // 17. while loop validation
+  while (true) {
+    stdout.write('Enter score for $selectedSubject (0-100): ');
+    var input = int.tryParse(stdin.readLineSync() ?? '');
+
+    if (input != null && input >= 0 && input <= 100) {
+      score = input;
+      break;
+    }
+    print('Invalid score. Try again.');
+  }
+
+  // 19. List add
+  (student['scores'] as List<int>).add(score);
+
+  print('Score for $selectedSubject added successfully.');
+}
