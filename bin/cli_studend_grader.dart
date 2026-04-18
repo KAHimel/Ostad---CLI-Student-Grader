@@ -151,3 +151,38 @@ void recordScore(List<Map<String, dynamic>> students) {
 
   print('Score for $selectedSubject added successfully.');
 }
+
+// -------- Feature 4: Add Bonus --------
+void addBonus(List<Map<String, dynamic>> students) {
+  var student = selectStudent(students);
+  if (student == null) return;
+
+  stdout.write('Enter bonus (1-10): ');
+  var bonus = int.tryParse(stdin.readLineSync() ?? '');
+
+  if (bonus == null || bonus < 1 || bonus > 10) {
+    print('Invalid bonus.');
+    return;
+  }
+
+  // 6. ??=
+  if (student['bonus'] == null) {
+    student['bonus'] ??= bonus;
+    print('Bonus added.');
+  } else {
+    print('Bonus already exists.');
+  }
+}
+
+// -------- Feature 5: Add Comment --------
+void addComment(List<Map<String, dynamic>> students) {
+  var student = selectStudent(students);
+  if (student == null) return;
+
+  stdout.write('Enter comment: ');
+  var comment = stdin.readLineSync();
+
+  student['comment'] = comment;
+
+  print('Comment added.');
+}
