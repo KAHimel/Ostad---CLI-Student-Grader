@@ -332,3 +332,49 @@ Details:
 ${summaryLines.join('\n')}
 """);
 }
+
+// -------- Feature 9: Helpers --------
+Map<String, dynamic>? selectStudent(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print('No students available.');
+    return null;
+  }
+
+  for (var i = 0; i < students.length; i++) {
+    print('${i + 1}. ${students[i]['name']}');
+  }
+
+  stdout.write('Select student: ');
+  var index = int.tryParse(stdin.readLineSync() ?? '');
+
+  if (index == null || index < 1 || index > students.length) {
+    print('Invalid selection.');
+    return null;
+  }
+
+  return students[index - 1];
+}
+
+double calculateAvg(Map<String, dynamic> student) {
+  var scores = student['scores'] as List<int>;
+  if (scores.isEmpty) return 0.0;
+
+  var sum = 0;
+  for (var s in scores) {
+    sum += s;
+  }
+
+  var avg = sum / scores.length;
+  var bonus = student['bonus'] ?? 0;
+
+  var finalAvg = avg + bonus;
+  return finalAvg > 100 ? 100 : finalAvg;
+}
+
+String getGrade(double avg) {
+  if (avg >= 90) return 'A';
+  if (avg >= 80) return 'B';
+  if (avg >= 70) return 'C';
+  if (avg >= 60) return 'D';
+  return 'F';
+}
