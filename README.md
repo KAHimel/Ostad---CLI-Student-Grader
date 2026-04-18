@@ -1,1 +1,1 @@
-# Ostad---CLI-Student-Grader
+# Ostad Project 1: CLI Student Grader
