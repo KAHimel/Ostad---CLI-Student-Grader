@@ -186,3 +186,23 @@ void addComment(List<Map<String, dynamic>> students) {
 
   print('Comment added.');
 }
+
+// -------- Feature 6: View All Students --------
+void viewAllStudents(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print('No students found.');
+    return;
+  }
+
+  // 16. for-in loop
+  for (var student in students) {
+    // 22. collection if
+    var tags = [
+      student['name'],
+      '${(student['scores'] as List<int>).length} scores',
+      if (student['bonus'] != null) '⭐ Has Bonus',
+    ];
+
+    print(tags.join(' | '));
+  }
+}
