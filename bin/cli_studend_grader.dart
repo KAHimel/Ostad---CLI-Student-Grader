@@ -68,3 +68,28 @@ void printMenu() {
 8. Exit
 """);
 }
+
+// -------- Feature 2: Add Student --------
+void addStudent(List<Map<String, dynamic>> students) {
+  stdout.write('Enter student name: ');
+  var name = stdin.readLineSync();
+
+  if (name == null || name.trim().isEmpty) {
+    print('Invalid name.');
+    return;
+  }
+
+  // 21. Map, 24. Spread operator, 4. nullable fields
+  var student = {
+    'name': name.trim(),
+    'scores': <int>[],
+    'subjects': {...availableSubjects},
+    'bonus': null,
+    'comment': null,
+  };
+
+  students.add(student);
+
+  // 11. string interpolation
+  print('Student "${student['name']}" added successfully.');
+}
