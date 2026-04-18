@@ -177,4 +177,4 @@ This project demonstrates how **basic Dart concepts** can be combined to build a
 
 ---
 
-🔥 If you found this helpful, consider giving the repo a star!
+🔥 If you found this helpful, consider giving the repo a star!  
