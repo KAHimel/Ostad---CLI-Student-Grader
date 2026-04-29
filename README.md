@@ -147,10 +147,15 @@ Displays:
 
 ```bash
 git clone https://github.com/your-username/cli-student-grader.git
+```
+
+### 2. Navigate to project folder
+
+```bash
 cd cli-student-grader
 ```
 
-### 2. Run the app
+### 3. Run the app
 
 ```bash
 dart run
